@@ -20,7 +20,7 @@ namespace AmbiBeam
         private Config _config;
         private Capture _capture;
         private Communication _comm;
-        private Timer _timer;
+        private System.Timers.Timer _timer;
 
         public AmbiBeam()
         {
@@ -41,7 +41,7 @@ namespace AmbiBeam
                 Visible = true
             };
 
-            _timer = new Timer();
+            _timer = new System.Timers.Timer();
 
         }
 
@@ -69,8 +69,9 @@ namespace AmbiBeam
                 _capture = new Capture(_config);
                 _comm = new Communication(_config.Portname);
 
-                _timer.Tick += timer_Tick;
-                _timer.Interval = 100;
+                _timer.AutoReset = true;
+                _timer.Elapsed += timer_Tick;
+                _timer.Interval = 300;
                 _timer.Start();
             }
 
@@ -79,10 +80,10 @@ namespace AmbiBeam
         void timer_Tick(object sender, EventArgs e)
         {
             _capture.Update();
-            _capture.BottomColors.Reverse();
+            _capture.TopColors.Reverse();
             _capture.LeftColors.Reverse();
             List<Color> data = _capture.BottomColors.Concat(_capture.LeftColors).Concat(_capture.TopColors).Concat(_capture.RightColors).ToList();
-            _comm.Write(data);
+            _comm.Write(data, Convert.ToByte(_config.Brightness));
              
         }
 

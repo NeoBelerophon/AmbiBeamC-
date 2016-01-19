@@ -32,8 +32,11 @@ namespace AmbiBeam
             numMarginTop.Value = Config.MarginTop;
             numOffsetBottom.Value = Config.OffsetBottom;
             numOffsetLeft.Value = Config.OffsetLeft;
-            numMarginRight.Value = Config.OffsetRight;
-            numMarginTop.Value = Config.OffsetTop;
+            numOffsetRight.Value = Config.OffsetRight;
+            numOffsetTop.Value = Config.OffsetTop;
+            numLEDHeight.Value = Config.LEDsHeight;
+            numLEDWidth.Value = Config.LEDsWidth;
+            tbBrightness.Value = Config.Brightness;
         }
 
         public Configure()
@@ -49,63 +52,81 @@ namespace AmbiBeam
             }
             cbScreen.SelectedIndexChanged += CbScreenOnSelectedIndexChanged;
 
-            numOffsetTop.TextChanged += NumOffsetTopOnTextChanged;
-            numOffsetBottom.TextChanged += NumOffsetBottomOnTextChanged;
-            numOffsetLeft.TextChanged += NumOffsetLeftOnTextChanged;
-            numOffsetRight.TextChanged += NumOffsetRightOnTextChanged;
-            numMarginTop.TextChanged += NumMarginTopOnTextChanged;
-            numMarginBottom.TextChanged += NumMarginBottomOnTextChanged;
-            numMarginLeft.TextChanged += NumMarginLeftOnTextChanged;
-            numMarginRight.TextChanged += NumMarginRightOnTextChanged;
+            numOffsetTop.ValueChanged += NumOffsetTopOnValueChanged;
+            numOffsetBottom.ValueChanged += NumOffsetBottomOnValueChanged;
+            numOffsetLeft.ValueChanged += NumOffsetLeftOnValueChanged;
+            numOffsetRight.ValueChanged += NumOffsetRightOnValueChanged;
+            numMarginTop.ValueChanged += NumMarginTopOnValueChanged;
+            numMarginBottom.ValueChanged += NumMarginBottomOnValueChanged;
+            numMarginLeft.ValueChanged += NumMarginLeftOnValueChanged;
+            numMarginRight.ValueChanged += NumMarginRightOnValueChanged;
+            numLEDWidth.ValueChanged += NumLedWidthOnValueChanged;
+            numLEDHeight.ValueChanged += NumLedHeightOnValueChanged;
+            tbBrightness.ValueChanged += TbBrightnessOnValueChanged;
 
         }
 
-        private void NumMarginRightOnTextChanged(object sender, EventArgs eventArgs)
+        private void TbBrightnessOnValueChanged(object sender, EventArgs eventArgs)
+        {
+            Config.Brightness = tbBrightness.Value;
+        }
+
+        private void NumLedHeightOnValueChanged(object sender, EventArgs eventArgs)
+        {
+            Config.LEDsHeight = Convert.ToInt32(numLEDHeight.Value);
+        }
+
+        private void NumLedWidthOnValueChanged(object sender, EventArgs eventArgs)
+        {
+            Config.LEDsWidth = Convert.ToInt32(numLEDWidth.Value);
+        }
+
+        private void NumMarginRightOnValueChanged(object sender, EventArgs eventArgs)
         {
             Config.MarginRight = Convert.ToInt32(numMarginRight.Value);
-            TbOnTextChanged(sender, eventArgs);
+            TbOnValueChanged(sender, eventArgs);
         }
 
-        private void NumMarginLeftOnTextChanged(object sender, EventArgs eventArgs)
+        private void NumMarginLeftOnValueChanged(object sender, EventArgs eventArgs)
         {
             Config.MarginLeft = Convert.ToInt32(numMarginLeft.Value);
-            TbOnTextChanged(sender, eventArgs);
+            TbOnValueChanged(sender, eventArgs);
         }
 
-        private void NumMarginBottomOnTextChanged(object sender, EventArgs eventArgs)
+        private void NumMarginBottomOnValueChanged(object sender, EventArgs eventArgs)
         {
             Config.MarginBottom= Convert.ToInt32(numMarginBottom.Value);
-            TbOnTextChanged(sender, eventArgs);
+            TbOnValueChanged(sender, eventArgs);
         }
 
-        private void NumMarginTopOnTextChanged(object sender, EventArgs eventArgs)
+        private void NumMarginTopOnValueChanged(object sender, EventArgs eventArgs)
         {
             Config.MarginTop = Convert.ToInt32(numMarginTop.Value);
-            TbOnTextChanged(sender, eventArgs);
+            TbOnValueChanged(sender, eventArgs);
         }
 
-        private void NumOffsetRightOnTextChanged(object sender, EventArgs eventArgs)
+        private void NumOffsetRightOnValueChanged(object sender, EventArgs eventArgs)
         {
             Config.OffsetRight = Convert.ToInt32(numOffsetRight.Value);
-            TbOnTextChanged(sender, eventArgs);
+            TbOnValueChanged(sender, eventArgs);
         }
 
-        private void NumOffsetLeftOnTextChanged(object sender, EventArgs eventArgs)
+        private void NumOffsetLeftOnValueChanged(object sender, EventArgs eventArgs)
         {
             Config.OffsetLeft = Convert.ToInt32(numOffsetLeft.Value);
-            TbOnTextChanged(sender, eventArgs);
+            TbOnValueChanged(sender, eventArgs);
         }
 
-        private void NumOffsetBottomOnTextChanged(object sender, EventArgs eventArgs)
+        private void NumOffsetBottomOnValueChanged(object sender, EventArgs eventArgs)
         {
             Config.OffsetBottom = Convert.ToInt32(numOffsetBottom.Value);
-            TbOnTextChanged(sender, eventArgs);
+            TbOnValueChanged(sender, eventArgs);
         }
 
-        private void NumOffsetTopOnTextChanged(object sender, EventArgs eventArgs)
+        private void NumOffsetTopOnValueChanged(object sender, EventArgs eventArgs)
         {
             Config.OffsetTop = Convert.ToInt32(numOffsetTop.Value);
-            TbOnTextChanged(sender, eventArgs);
+            TbOnValueChanged(sender, eventArgs);
         }
 
         void cbSerialPort_SelectedIndexChanged(object sender, EventArgs e)
@@ -113,7 +134,7 @@ namespace AmbiBeam
             Config.Portname = cbSerialPort.SelectedItem.ToString();
         }
 
-        private void TbOnTextChanged(object sender, EventArgs eventArgs)
+        private void TbOnValueChanged(object sender, EventArgs eventArgs)
         {
             UpdateHelpers();
         }

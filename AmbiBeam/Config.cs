@@ -40,6 +40,8 @@ namespace AmbiBeam
         public int OffsetLeft { get; set; }
         public int OffsetRight { get; set; }
 
+        public int Brightness { get; set; }
+
         /// <summary>
         /// Name of the serial port used for communication with arduino
         /// </summary>

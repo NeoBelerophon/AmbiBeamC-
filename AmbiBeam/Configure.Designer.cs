@@ -49,6 +49,12 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.numLEDHeight = new System.Windows.Forms.NumericUpDown();
+            this.numLEDWidth = new System.Windows.Forms.NumericUpDown();
+            this.tbBrightness = new System.Windows.Forms.TrackBar();
+            this.label13 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numOffsetTop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMarginTop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMarginLeft)).BeginInit();
@@ -57,197 +63,267 @@
             ((System.ComponentModel.ISupportInitialize)(this.numOffsetRight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMarginBottom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numOffsetBottom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLEDHeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLEDWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbBrightness)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 9);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(9, 6);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(86, 20);
+            this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "SerialPort :";
             // 
             // cbSerialPort
             // 
             this.cbSerialPort.FormattingEnabled = true;
-            this.cbSerialPort.Location = new System.Drawing.Point(138, 6);
-            this.cbSerialPort.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cbSerialPort.Location = new System.Drawing.Point(92, 4);
             this.cbSerialPort.Name = "cbSerialPort";
-            this.cbSerialPort.Size = new System.Drawing.Size(180, 28);
+            this.cbSerialPort.Size = new System.Drawing.Size(121, 21);
             this.cbSerialPort.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 57);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(9, 37);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(68, 20);
+            this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Screen :";
             // 
             // cbScreen
             // 
             this.cbScreen.FormattingEnabled = true;
-            this.cbScreen.Location = new System.Drawing.Point(138, 54);
-            this.cbScreen.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cbScreen.Location = new System.Drawing.Point(92, 35);
             this.cbScreen.Name = "cbScreen";
-            this.cbScreen.Size = new System.Drawing.Size(180, 28);
+            this.cbScreen.Size = new System.Drawing.Size(121, 21);
             this.cbScreen.TabIndex = 3;
             // 
             // numOffsetTop
             // 
-            this.numOffsetTop.Location = new System.Drawing.Point(138, 102);
-            this.numOffsetTop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numOffsetTop.Location = new System.Drawing.Point(92, 66);
             this.numOffsetTop.Name = "numOffsetTop";
-            this.numOffsetTop.Size = new System.Drawing.Size(180, 26);
+            this.numOffsetTop.Size = new System.Drawing.Size(120, 20);
             this.numOffsetTop.TabIndex = 4;
             // 
             // numMarginTop
             // 
-            this.numMarginTop.Location = new System.Drawing.Point(138, 148);
-            this.numMarginTop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numMarginTop.Location = new System.Drawing.Point(92, 96);
             this.numMarginTop.Name = "numMarginTop";
-            this.numMarginTop.Size = new System.Drawing.Size(180, 26);
+            this.numMarginTop.Size = new System.Drawing.Size(120, 20);
             this.numMarginTop.TabIndex = 5;
             // 
             // numMarginLeft
             // 
-            this.numMarginLeft.Location = new System.Drawing.Point(138, 240);
-            this.numMarginLeft.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numMarginLeft.Location = new System.Drawing.Point(92, 156);
             this.numMarginLeft.Name = "numMarginLeft";
-            this.numMarginLeft.Size = new System.Drawing.Size(180, 26);
+            this.numMarginLeft.Size = new System.Drawing.Size(120, 20);
             this.numMarginLeft.TabIndex = 7;
             // 
             // numOffsetLeft
             // 
-            this.numOffsetLeft.Location = new System.Drawing.Point(138, 194);
-            this.numOffsetLeft.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numOffsetLeft.Location = new System.Drawing.Point(92, 126);
             this.numOffsetLeft.Name = "numOffsetLeft";
-            this.numOffsetLeft.Size = new System.Drawing.Size(180, 26);
+            this.numOffsetLeft.Size = new System.Drawing.Size(120, 20);
             this.numOffsetLeft.TabIndex = 6;
             // 
             // numMarginRight
             // 
-            this.numMarginRight.Location = new System.Drawing.Point(138, 332);
-            this.numMarginRight.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numMarginRight.Location = new System.Drawing.Point(92, 216);
             this.numMarginRight.Name = "numMarginRight";
-            this.numMarginRight.Size = new System.Drawing.Size(180, 26);
+            this.numMarginRight.Size = new System.Drawing.Size(120, 20);
             this.numMarginRight.TabIndex = 9;
             // 
             // numOffsetRight
             // 
-            this.numOffsetRight.Location = new System.Drawing.Point(138, 286);
-            this.numOffsetRight.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numOffsetRight.Location = new System.Drawing.Point(92, 186);
             this.numOffsetRight.Name = "numOffsetRight";
-            this.numOffsetRight.Size = new System.Drawing.Size(180, 26);
+            this.numOffsetRight.Size = new System.Drawing.Size(120, 20);
             this.numOffsetRight.TabIndex = 8;
             // 
             // numMarginBottom
             // 
-            this.numMarginBottom.Location = new System.Drawing.Point(138, 423);
-            this.numMarginBottom.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numMarginBottom.Location = new System.Drawing.Point(92, 275);
             this.numMarginBottom.Name = "numMarginBottom";
-            this.numMarginBottom.Size = new System.Drawing.Size(180, 26);
+            this.numMarginBottom.Size = new System.Drawing.Size(120, 20);
             this.numMarginBottom.TabIndex = 11;
             // 
             // numOffsetBottom
             // 
-            this.numOffsetBottom.Location = new System.Drawing.Point(138, 377);
-            this.numOffsetBottom.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numOffsetBottom.Location = new System.Drawing.Point(92, 245);
             this.numOffsetBottom.Name = "numOffsetBottom";
-            this.numOffsetBottom.Size = new System.Drawing.Size(180, 26);
+            this.numOffsetBottom.Size = new System.Drawing.Size(120, 20);
             this.numOffsetBottom.TabIndex = 10;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 103);
+            this.label3.Location = new System.Drawing.Point(9, 67);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(92, 20);
+            this.label3.Size = new System.Drawing.Size(63, 13);
             this.label3.TabIndex = 12;
             this.label3.Text = "Offset Top :";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 149);
+            this.label4.Location = new System.Drawing.Point(9, 97);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(96, 20);
+            this.label4.Size = new System.Drawing.Size(67, 13);
             this.label4.TabIndex = 13;
             this.label4.Text = "Margin Top :";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 241);
+            this.label5.Location = new System.Drawing.Point(9, 157);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(97, 20);
+            this.label5.Size = new System.Drawing.Size(66, 13);
             this.label5.TabIndex = 15;
             this.label5.Text = "Margin Left :";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(13, 195);
+            this.label6.Location = new System.Drawing.Point(9, 127);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(93, 20);
+            this.label6.Size = new System.Drawing.Size(62, 13);
             this.label6.TabIndex = 14;
             this.label6.Text = "Offset Left :";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 425);
+            this.label7.Location = new System.Drawing.Point(9, 276);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(121, 20);
+            this.label7.Size = new System.Drawing.Size(81, 13);
             this.label7.TabIndex = 19;
             this.label7.Text = "Margin Bottom :";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(13, 379);
+            this.label8.Location = new System.Drawing.Point(9, 246);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(117, 20);
+            this.label8.Size = new System.Drawing.Size(77, 13);
             this.label8.TabIndex = 18;
             this.label8.Text = "Offset Bottom :";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(13, 333);
+            this.label9.Location = new System.Drawing.Point(9, 216);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(107, 20);
+            this.label9.Size = new System.Drawing.Size(73, 13);
             this.label9.TabIndex = 17;
             this.label9.Text = "Margin Right :";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(13, 287);
+            this.label10.Location = new System.Drawing.Point(9, 187);
+            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(103, 20);
+            this.label10.Size = new System.Drawing.Size(69, 13);
             this.label10.TabIndex = 16;
             this.label10.Text = "Offset Right :";
             // 
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(243, 475);
+            this.button1.Location = new System.Drawing.Point(162, 430);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 30);
-            this.button1.TabIndex = 20;
+            this.button1.Size = new System.Drawing.Size(50, 19);
+            this.button1.TabIndex = 15;
             this.button1.Text = "Save";
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(9, 337);
+            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(73, 13);
+            this.label11.TabIndex = 24;
+            this.label11.Text = "LEDs Height :";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(9, 307);
+            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(70, 13);
+            this.label12.TabIndex = 23;
+            this.label12.Text = "LEDs Width :";
+            // 
+            // numLEDHeight
+            // 
+            this.numLEDHeight.Location = new System.Drawing.Point(92, 336);
+            this.numLEDHeight.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numLEDHeight.Name = "numLEDHeight";
+            this.numLEDHeight.Size = new System.Drawing.Size(120, 20);
+            this.numLEDHeight.TabIndex = 13;
+            // 
+            // numLEDWidth
+            // 
+            this.numLEDWidth.Location = new System.Drawing.Point(92, 306);
+            this.numLEDWidth.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numLEDWidth.Name = "numLEDWidth";
+            this.numLEDWidth.Size = new System.Drawing.Size(120, 20);
+            this.numLEDWidth.TabIndex = 12;
+            // 
+            // tbBrightness
+            // 
+            this.tbBrightness.Location = new System.Drawing.Point(8, 381);
+            this.tbBrightness.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbBrightness.Maximum = 255;
+            this.tbBrightness.Name = "tbBrightness";
+            this.tbBrightness.Size = new System.Drawing.Size(203, 45);
+            this.tbBrightness.TabIndex = 14;
+            this.tbBrightness.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(9, 366);
+            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(62, 13);
+            this.label13.TabIndex = 26;
+            this.label13.Text = "Brightness :";
+            // 
             // Configure
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(382, 541);
+            this.ClientSize = new System.Drawing.Size(255, 482);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.tbBrightness);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.numLEDHeight);
+            this.Controls.Add(this.numLEDWidth);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label8);
@@ -269,7 +345,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cbSerialPort);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Configure";
             this.Text = "AmbiBeam - Configuration";
             ((System.ComponentModel.ISupportInitialize)(this.numOffsetTop)).EndInit();
@@ -280,6 +355,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numOffsetRight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMarginBottom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numOffsetBottom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLEDHeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLEDWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbBrightness)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -308,6 +386,12 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.NumericUpDown numLEDHeight;
+        private System.Windows.Forms.NumericUpDown numLEDWidth;
+        private System.Windows.Forms.TrackBar tbBrightness;
+        private System.Windows.Forms.Label label13;
     }
 }
 

@@ -17,22 +17,22 @@ namespace AmbiBeam
         {
 
 
-            byte[] buffer = new byte[10];
+            byte[] buffer = new byte[3* colors.Count];
             buffer[0] = 1; // SOH
             buffer[1] = (byte)(0xff & colors.Count);
             buffer[2] = (byte)((colors.Count >> 8) & 0xff);
             buffer[3] = brightness;
             buffer[4] = 2; // STX
-            _port.Write(buffer, 0, 4);
-
+            _port.Write(buffer, 0, 5);
+            
+            int i = 0;
             foreach (Color color in colors)
             {
-                buffer[0] = color.R;
-                buffer[1] = color.G;
-                buffer[2] = color.B;
-
-                _port.Write(buffer, 0, 3);
+                buffer[i++] = color.R;
+                buffer[i++] = color.G;
+                buffer[i++] = color.B;
             }
+            _port.Write(buffer, 0, 3 * colors.Count);
             buffer[0] = 3; // ETX
             _port.Write(buffer, 0, 1);
         }
