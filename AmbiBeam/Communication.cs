@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.IO.Ports;
+using System.Threading;
 
 namespace AmbiBeam
 {
@@ -11,6 +12,10 @@ namespace AmbiBeam
         {
             _port = new SerialPort(portname, 115200);
             _port.Open();
+            // reset Arduino
+            _port.DtrEnable = true;
+            _port.DtrEnable = false;
+            Thread.Sleep(100);
         }
 
         public void Write(List<Color> colors, byte brightness = 0x4F)

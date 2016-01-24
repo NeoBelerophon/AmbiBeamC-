@@ -24,7 +24,7 @@ namespace AmbiBeam
             if(Config.Screen != null && cbScreen.Items.Contains(Config.Screen))
                 cbScreen.SelectedItem = Config.Screen;
             
-            cbSerialPort.SelectedText = Config.Portname;
+            cbSerialPort.SelectedItem = Config.Portname;
 
             numMarginBottom.Value = Config.MarginBottom;
             numMarginLeft.Value = Config.MarginLeft;
@@ -37,11 +37,13 @@ namespace AmbiBeam
             numLEDHeight.Value = Config.LEDsHeight;
             numLEDWidth.Value = Config.LEDsWidth;
             tbBrightness.Value = Config.Brightness;
+            UpdateBrightnessPrecent(tbBrightness.Value);
         }
 
         public Configure()
         {
             InitializeComponent();
+            Icon = Properties.Resources.Color;
 
             cbSerialPort.DataSource = SerialPort.GetPortNames();
             cbSerialPort.SelectedIndexChanged += cbSerialPort_SelectedIndexChanged;
@@ -66,9 +68,15 @@ namespace AmbiBeam
 
         }
 
+        private void UpdateBrightnessPrecent(int value)
+        {
+            lbBrightness.Text = ((int)((float)value / 255 * 100)).ToString() + "%";
+        }
+
         private void TbBrightnessOnValueChanged(object sender, EventArgs eventArgs)
         {
             Config.Brightness = tbBrightness.Value;
+            UpdateBrightnessPrecent(tbBrightness.Value);
         }
 
         private void NumLedHeightOnValueChanged(object sender, EventArgs eventArgs)
@@ -183,6 +191,11 @@ namespace AmbiBeam
         ~Configure()
         {
             DeleteDC(hdc);
+        }
+
+        private void tbBrightness_ValueChanged(object sender, EventArgs e)
+        {
+
         }
 
 
