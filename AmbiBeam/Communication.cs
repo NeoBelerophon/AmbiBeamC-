@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO.Ports;
 using System.Threading;
@@ -40,6 +41,9 @@ namespace AmbiBeam
             _port.Write(buffer, 0, 3 * colors.Count);
             buffer[0] = 3; // ETX
             _port.Write(buffer, 0, 1);
+
+            var retval = _port.ReadByte();
+
         }
 
         ~Communication()

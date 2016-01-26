@@ -169,10 +169,10 @@ namespace AmbiBeam
         }
 
         [DllImport("gdi32.dll")]
-        public static extern IntPtr CreateDC(string lpszDriver, string lpszDevice, string lpszOutput, IntPtr lpInitData);
+        private static extern IntPtr CreateDC(string lpszDriver, string lpszDevice, string lpszOutput, IntPtr lpInitData);
 
         [DllImport("gdi32.dll")]
-        public static extern bool DeleteDC(IntPtr hdc);
+        private static extern bool DeleteDC(IntPtr hdc);
 
         private void UpdateHelpers()
         {
