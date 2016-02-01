@@ -130,11 +130,7 @@ namespace AmbiBeam
             {
                 // Release the icon resource.
                 _trayIcon.Dispose();
-                if(_capture != null)
-                    _capture.Dispose();
-                if(_comm != null)
-                    _comm.Dispose();
-            }
+           }
 
             base.Dispose(isDisposing);
         }
