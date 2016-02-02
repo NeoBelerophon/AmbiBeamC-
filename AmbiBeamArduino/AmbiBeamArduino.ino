@@ -76,16 +76,18 @@ void loop() {
         }
         break;
 
-      case 4:
+      case 4:{
         timeout = millis();
-        chunkPos += Serial.readBytes((char*)leds, len * 3 - chunkPos);
+        char* pleds = (char*)leds;
+	      pleds += chunkPos / 3;
+        chunkPos += Serial.readBytes(pleds, len * 3 - chunkPos);
         if (chunkPos >= (len * 3))
         {
           state++;
         }
         //Serial.print(F("chunksize:"));
         //Serial.println(chunkPos, DEC);
-        
+      }
         break;
         
       case 5:
