@@ -16,12 +16,10 @@
 #include <ESP8266WebServer.h>
 #include <WiFiManager.h>
 
-#include <math.h>
-
 // How many leds in your strip?
 #define NUM_LEDS 440
 // Where is it connected ?
-#define DATA_PIN 3
+#define DATA_PIN 5
 
 // Define the array of leds
 CRGB leds[NUM_LEDS];
@@ -46,7 +44,7 @@ void configModeCallback (WiFiManager *myWiFiManager) {
   Serial.println(myWiFiManager->getConfigPortalSSID());
 }
 
-char packetBuffer[255];
+char packetBuffer[1330];
 
 void setup() {
   Serial.begin(115200);
@@ -72,12 +70,12 @@ int packetSize = Udp.parsePacket();
     Serial.println(Udp.remotePort());
     
     // read the packet into packetBufffer
-    uint16_t packetLen = Udp.read(packetBuffer, 255);
+    uint16_t packetLen = Udp.read(packetBuffer, 1330);
     if (packetLen > 0) {
       packetBuffer[packetLen] = 0;
   
-      Serial.println("Contents:");
-      Serial.println(packetBuffer);
+      // Serial.println("Contents:");
+      // Serial.println(packetBuffer);
       char* p = &packetBuffer[0];
       switch(state){
           case 0: {
@@ -85,8 +83,14 @@ int packetSize = Udp.parsePacket();
             if(*(p++) == SOH)
             {
               len = (uint16_t) *(p++) << 8 | *(p++);
+              Serial.print(F("len: "));
+              Serial.println(len, DEC);
+              
               brightness = *(p++);
+              Serial.print(F("brightness: "));
+              Serial.println(brightness, DEC);
               if(*(p++) == STX){
+                Serial.println(F("got stx"));
                 FastLED.setBrightness(brightness);
                 chunkPos = 0;
                 state++;
@@ -95,22 +99,22 @@ int packetSize = Udp.parsePacket();
           }
         case 1: {
           timeout = millis();
-          int bytesToCopy = std::min(len * 3, packetLen - 5);
+          int bytesToCopy = len * 3;
+          Serial.print("bytesToCopy");
+          Serial.println(bytesToCopy, DEC);
           char* pleds = (char*)leds;
-          pleds += chunkPos / 3;
+                    
           memcpy ( pleds, p, bytesToCopy);
+
           if (chunkPos + bytesToCopy >= (len * 3))
           {
-            state++;
+            Serial.println("Copy Done");
+            Serial.println("show");
+            FastLED.show();      
+            state = 0;
           } else {
             chunkPos += bytesToCopy;
           }
-          break;
-        }
-        case 2:
-        {
-          FastLED.show();      
-          state = 0;
           break;
         }
       }
