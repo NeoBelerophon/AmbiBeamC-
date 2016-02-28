@@ -24,7 +24,7 @@ namespace AmbiBeam
             if(Config.Screen != null && cbScreen.Items.Contains(Config.Screen))
                 cbScreen.SelectedItem = Config.Screen;
             
-            cbSerialPort.SelectedItem = Config.Portname;
+            cbSerialPort.SelectedText = Config.Portname;
 
             numMarginBottom.Value = Config.MarginBottom;
             numMarginLeft.Value = Config.MarginLeft;
@@ -46,7 +46,7 @@ namespace AmbiBeam
             Icon = Properties.Resources.Color;
 
             cbSerialPort.DataSource = SerialPort.GetPortNames();
-            cbSerialPort.SelectedIndexChanged += cbSerialPort_SelectedIndexChanged;
+            cbSerialPort.TextChanged += cbSerialPort_SelectedIndexChanged;
             
             foreach (Screen screen in Screen.AllScreens)
             {
@@ -139,7 +139,7 @@ namespace AmbiBeam
 
         void cbSerialPort_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Config.Portname = cbSerialPort.SelectedItem.ToString();
+            Config.Portname = cbSerialPort.SelectedText.ToString();
         }
 
         private void TbOnValueChanged(object sender, EventArgs eventArgs)
