@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using SlimDX;
@@ -181,9 +182,18 @@ namespace AmbiBeam
 
         public Surface CaptureScreen()
         {
-            Surface s = Surface.CreateOffscreenPlain(_d, _config.GetScreen().Bounds.Width, _config.GetScreen().Bounds.Height, Format.A8R8G8B8,
-                Pool.Scratch);
-            _d.GetFrontBufferData(0, s);
+            var width = _config.GetScreen().Bounds.Width;
+            var height = _config.GetScreen().Bounds.Height;
+
+            Surface s = Surface.CreateOffscreenPlain(_d, width, height, Format.A8R8G8B8, Pool.Scratch);
+            try
+            {
+                _d.GetFrontBufferData(0, s);
+            }
+            catch (Direct3D9Exception)
+            {
+                Debug.WriteLine("missed capture");
+            }
             return s;
         }
     }

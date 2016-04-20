@@ -20,7 +20,7 @@ namespace AmbiBeam
         private readonly NotifyIcon _trayIcon;
         private Config _config;
         private Capture _capture;
-        private Communication _comm;
+        private ICommunication _comm;
         private System.Timers.Timer _timer;
         private LEDTest _test;
 
@@ -54,8 +54,9 @@ namespace AmbiBeam
         
         private void OnTest(object sender, EventArgs e)
         {
-            _comm = new Communication(_config.Portname);
-            _test = new LEDTest(_config.LEDsHeight*2 + _config.LEDsWidth*2);
+            _config.Portname = "192.168.178.17:2222";
+            _comm = new UdpCommunication(_config.Portname);
+            _test = new LEDTest(440);
             _timer.Elapsed += TimerOnElapsedTest;
             _timer.Start();
 
@@ -87,9 +88,22 @@ namespace AmbiBeam
             }
             else
             {
-
+                _config.Portname = "192.168.178.17:2222";
                 _capture = new Capture(_config);
-                _comm = new Communication(_config.Portname);
+                if (_config.Portname.Contains("."))
+                {
+                    _comm = new UdpCommunication(_config.Portname);
+                }
+                else
+                {
+                    _comm = new SerialCommunication(_config.Portname);
+                }
+
+                if (_comm == null)
+                {
+                    MessageBox.Show("Can't connect to AmbiBeam", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
                 _timer.Elapsed += timer_Tick;;
                 _timer.Start();
@@ -99,12 +113,17 @@ namespace AmbiBeam
 
         void timer_Tick(object sender, EventArgs e)
         {
-            _capture.Update();
-            _capture.TopColors.Reverse();
-            _capture.RightColors.Reverse();
-            List<Color> data = _capture.BottomColors.Concat(_capture.RightColors).Concat(_capture.TopColors).Concat(_capture.LeftColors).ToList();
-            _comm.Write(data, Convert.ToByte(_config.Brightness));
-             
+            try
+            {
+                _capture.Update();
+                _capture.TopColors.Reverse();
+                _capture.RightColors.Reverse();
+                List<Color> data = _capture.BottomColors.Concat(_capture.RightColors).Concat(_capture.TopColors).Concat(_capture.LeftColors).ToList();
+                _comm.Write(data, Convert.ToByte(_config.Brightness));
+            }
+            catch (Exception)
+            { }
+                             
         }
 
         private void OnConfigure(object sender, EventArgs e)
