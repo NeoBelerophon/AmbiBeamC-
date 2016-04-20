@@ -10,6 +10,7 @@
 #include <WiFiClientSecure.h>
 #include <WiFiServer.h>
 #include <WiFiUdp.h>
+#include <ArduinoOTA.h>
 
 // Wifi Manager
 #include <DNSServer.h>
@@ -23,6 +24,8 @@
 
 // Define the array of leds
 CRGB leds[NUM_LEDS];
+
+#define HOSTNAME "AMBIBEAM"
 
 #define localPort 2222
 #define SOH 0x01
@@ -48,10 +51,39 @@ char packetBuffer[1330];
 
 void setup() {
   Serial.begin(115200);
+
+  // Set Hostname.
+  String hostname(HOSTNAME);
+  hostname += String(ESP.getChipId(), HEX);
   
   WiFiManager wifiManager;
   wifiManager.setAPCallback(configModeCallback);
-  wifiManager.autoConnect("ESP", "test");
+  wifiManager.autoConnect((const char *)hostname.c_str(), "test");
+
+  ArduinoOTA.onStart([]() {
+    Serial.println("Start");
+  });
+  ArduinoOTA.onEnd([]() {
+    Serial.println("\nEnd");
+  });
+  ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
+    Serial.printf("Progress: %u%%\r", (progress / (total / 100)));
+  });
+  ArduinoOTA.onError([](ota_error_t error) {
+    Serial.printf("Error[%u]: ", error);
+    if (error == OTA_AUTH_ERROR) Serial.println("Auth Failed");
+    else if (error == OTA_BEGIN_ERROR) Serial.println("Begin Failed");
+    else if (error == OTA_CONNECT_ERROR) Serial.println("Connect Failed");
+    else if (error == OTA_RECEIVE_ERROR) Serial.println("Receive Failed");
+    else if (error == OTA_END_ERROR) Serial.println("End Failed");
+  });
+
+
+
+  // Start OTA server.
+  ArduinoOTA.setHostname((const char *)hostname.c_str());
+  ArduinoOTA.begin();
+
 
   FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
   
@@ -59,7 +91,12 @@ void setup() {
 }
 
 void loop() {
-int packetSize = Udp.parsePacket();
+    // Handle OTA server.
+  ArduinoOTA.handle();
+  yield();
+
+  
+  int packetSize = Udp.parsePacket();
   if (packetSize) {
     Serial.print("Received packet of size ");
     Serial.println(packetSize);
@@ -83,14 +120,14 @@ int packetSize = Udp.parsePacket();
             if(*(p++) == SOH)
             {
               len = (uint16_t) *(p++) << 8 | *(p++);
-              Serial.print(F("len: "));
-              Serial.println(len, DEC);
+            //  Serial.print(F("len: "));
+            //  Serial.println(len, DEC);
               
               brightness = *(p++);
-              Serial.print(F("brightness: "));
-              Serial.println(brightness, DEC);
+            //  Serial.print(F("brightness: "));
+            //  Serial.println(brightness, DEC);
               if(*(p++) == STX){
-                Serial.println(F("got stx"));
+              //  Serial.println(F("got stx"));
                 FastLED.setBrightness(brightness);
                 chunkPos = 0;
                 state++;
@@ -100,17 +137,19 @@ int packetSize = Udp.parsePacket();
         case 1: {
           timeout = millis();
           int bytesToCopy = len * 3;
-          Serial.print("bytesToCopy");
-          Serial.println(bytesToCopy, DEC);
+          //Serial.print("bytesToCopy");
+          //Serial.println(bytesToCopy, DEC);
           char* pleds = (char*)leds;
                     
           memcpy ( pleds, p, bytesToCopy);
 
           if (chunkPos + bytesToCopy >= (len * 3))
           {
-            Serial.println("Copy Done");
-            Serial.println("show");
+            //Serial.println("Copy Done");
+            //Serial.println("show");
             FastLED.show();      
+            Serial.print(F("FPS:"));
+            Serial.println(FastLED.getFPS(),DEC);
             state = 0;
           } else {
             chunkPos += bytesToCopy;
