@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Timers;
 using System.Windows.Forms;
+using Tmds.MDns;
 
 namespace AmbiBeam
 {
@@ -23,6 +24,7 @@ namespace AmbiBeam
         private ICommunication _comm;
         private System.Timers.Timer _timer;
         private LEDTest _test;
+        private ServiceBrowser _mDnsBrowser;
 
         public AmbiBeam()
         {
@@ -47,16 +49,20 @@ namespace AmbiBeam
             _timer = new System.Timers.Timer
             {
                 AutoReset = true,
-                Interval = 100
+                Interval = 50
             };
+
+            _mDnsBrowser = new ServiceBrowser();
+            _mDnsBrowser.StartBrowse("_ambibeam._udp");
+            
 
         }
         
         private void OnTest(object sender, EventArgs e)
         {
-            _config.Portname = "192.168.178.17:2222";
-            _comm = new UdpCommunication(_config.Portname);
-            _test = new LEDTest(440);
+            _comm = GetCommunication(_config.Node);
+
+            _test = new LEDTest(2*_config.LEDsHeight + 2*_config.LEDsWidth);
             _timer.Elapsed += TimerOnElapsedTest;
             _timer.Start();
 
@@ -88,20 +94,12 @@ namespace AmbiBeam
             }
             else
             {
-                _config.Portname = "192.168.178.17:2222";
                 _capture = new Capture(_config);
-                if (_config.Portname.Contains("."))
-                {
-                    _comm = new UdpCommunication(_config.Portname);
-                }
-                else
-                {
-                    _comm = new SerialCommunication(_config.Portname);
-                }
+                _comm = GetCommunication(_config.Node);
 
                 if (_comm == null)
                 {
-                    MessageBox.Show("Can't connect to AmbiBeam", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Can't connect to AmbiBeam: " + _config.Node, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -110,6 +108,28 @@ namespace AmbiBeam
             }
 
         }
+
+        private ICommunication GetCommunication(string node)
+        {
+            ICommunication comm = null;
+            if (_config.Node.ToLower().Contains("ambibeam"))
+            {
+                foreach (var service in _mDnsBrowser.Services)
+                {
+                    if (service.Hostname == node && service.Addresses.Count > 0)
+                    {
+                        comm = new UdpCommunication(service.Addresses[0].ToString());
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                comm = new SerialCommunication(node);
+            }
+            return comm;
+        }
+
 
         void timer_Tick(object sender, EventArgs e)
         {
@@ -128,7 +148,8 @@ namespace AmbiBeam
 
         private void OnConfigure(object sender, EventArgs e)
         {
-            Configure configure = new Configure {Config = _config};
+            Configure configure = new Configure(_mDnsBrowser) {Config = _config};
+            
             var result = configure.ShowDialog();
             if (result == DialogResult.OK)
             {

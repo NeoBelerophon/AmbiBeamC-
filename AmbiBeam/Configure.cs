@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Drawing;
 using System.IO.Ports;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using SlimDX.X3DAudio;
+using Tmds.MDns;
 
 namespace AmbiBeam
 {
@@ -24,7 +27,7 @@ namespace AmbiBeam
             if(Config.Screen != null && cbScreen.Items.Contains(Config.Screen))
                 cbScreen.SelectedItem = Config.Screen;
             
-            cbSerialPort.SelectedText = Config.Portname;
+            cbNode.SelectedText = Config.Node;
 
             numMarginBottom.Value = Config.MarginBottom;
             numMarginLeft.Value = Config.MarginLeft;
@@ -40,13 +43,31 @@ namespace AmbiBeam
             UpdateBrightnessPrecent(tbBrightness.Value);
         }
 
-        public Configure()
+        public ServiceBrowser ServiceBrowser { get; set; }
+
+        public Configure(ServiceBrowser serviceBrowser)
         {
             InitializeComponent();
             Icon = Properties.Resources.Color;
 
-            cbSerialPort.DataSource = SerialPort.GetPortNames();
-            cbSerialPort.TextChanged += cbSerialPort_SelectedIndexChanged;
+            cbNode.Items.AddRange(SerialPort.GetPortNames());
+
+            ServiceBrowser = serviceBrowser;
+           
+            if (ServiceBrowser != null)
+            {
+                foreach (var item in ServiceBrowser.Services)
+                {
+                    cbNode.Items.Add(item.Hostname);
+                }
+                // in case we get more
+                ServiceBrowser.ServiceAdded += BrowserOnServiceAdded;
+            }
+            
+
+
+
+            cbNode.TextChanged += cbSerialPort_SelectedIndexChanged;
             
             foreach (Screen screen in Screen.AllScreens)
             {
@@ -66,6 +87,11 @@ namespace AmbiBeam
             numLEDHeight.ValueChanged += NumLedHeightOnValueChanged;
             tbBrightness.ValueChanged += TbBrightnessOnValueChanged;
 
+        }
+
+        private void BrowserOnServiceAdded(object sender, ServiceAnnouncementEventArgs serviceAnnouncementEventArgs)
+        {
+            cbNode.Items.Add(serviceAnnouncementEventArgs.Announcement.Hostname);
         }
 
         private void UpdateBrightnessPrecent(int value)
@@ -139,7 +165,7 @@ namespace AmbiBeam
 
         void cbSerialPort_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Config.Portname = cbSerialPort.SelectedText.ToString();
+            Config.Node = cbNode.SelectedItem.ToString();
         }
 
         private void TbOnValueChanged(object sender, EventArgs eventArgs)
@@ -191,6 +217,7 @@ namespace AmbiBeam
         ~Configure()
         {
             DeleteDC(hdc);
+            ServiceBrowser.ServiceAdded -= BrowserOnServiceAdded;
         }
 
         private void tbBrightness_ValueChanged(object sender, EventArgs e)

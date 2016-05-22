@@ -41,7 +41,7 @@ namespace AmbiBeam
         /// <summary>
         /// Name of the serial port used for communication with arduino
         /// </summary>
-        public string Portname { get; set; }
+        public string Node { get; set; }
 
         public Rectangle GetTopRectangle()
         {
