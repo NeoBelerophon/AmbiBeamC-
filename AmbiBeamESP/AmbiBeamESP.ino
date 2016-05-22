@@ -18,7 +18,7 @@
 #include <WiFiManager.h>
 
 // How many leds in your strip?
-#define NUM_LEDS 440
+#define NUM_LEDS 440  // 140 * 80
 // Where is it connected ?
 #define DATA_PIN 5
 
