@@ -27,7 +27,7 @@ namespace AmbiBeam
             if(Config.Screen != null && cbScreen.Items.Contains(Config.Screen))
                 cbScreen.SelectedItem = Config.Screen;
             
-            cbNode.SelectedText = Config.Node;
+            cbNode.SelectedItem = Config.Node;
 
             numMarginBottom.Value = Config.MarginBottom;
             numMarginLeft.Value = Config.MarginLeft;
